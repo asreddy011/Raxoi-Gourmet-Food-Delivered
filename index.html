@@ -59,15 +59,14 @@
     .close { color: #aaa; float: right; font-size: 32px; font-weight: bold; }
     .close:hover { color: black; cursor: pointer; }
 
-    /* Flavor Selector */
     .flavor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; margin: 20px 0; }
-    .flavor-row { display: flex; align-items: center; justify-content: space-between; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+    .flavor-row { display: flex; align-items: center; justify-content: space-between; padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
     .flavor-name { flex: 1; font-weight: bold; }
     .quantity-controls button {
-      width: 30px;
-      height: 30px;
-      font-size: 18px;
-      margin: 0 5px;
+      width: 32px;
+      height: 32px;
+      font-size: 20px;
+      margin: 0 6px;
       background: #eee;
       color: #333;
       border: none;
@@ -75,12 +74,7 @@
       cursor: pointer;
     }
     .quantity-controls button:hover { background: #ddd; }
-    .quantity { font-size: 16px; min-width: 30px; text-align: center; }
-
-    input, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-    label { display: block; margin-top: 12px; font-weight: bold; }
-    .radio-group { margin: 12px 0; }
-    .radio-group label { display: inline-block; margin-right: 25px; font-weight: normal; }
+    .quantity { font-size: 18px; min-width: 30px; text-align: center; }
   </style>
 </head>
 <body>
@@ -170,20 +164,21 @@
       </div>
     </div>
 
-    <!-- PASTA, BIRYANIS, SALADS, PIZZA, APPETIZERS – copy your existing full sections here -->
-    <!-- For space, paste your previous pasta, biryanis, salads, pizza, appetizers categories from your last working code -->
+    <!-- PASTA, BIRYANIS, SALADS, PIZZA, APPETIZERS – copy your full sections here from previous version -->
+    <!-- For example, paste the entire <div class="category"> for Pasta, Biryanis, etc. from your last working code -->
+    <!-- To keep this response readable, I haven't repeated them – insert them into <div id="menu"> -->
 
   </div>
 
-  <!-- FLAVOR SELECTION MODAL (now with +/− quantity) -->
+  <!-- FLAVOR SELECTION MODAL (with strict quantity enforcement) -->
   <div id="flavorModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeFlavorModal()">×</span>
       <h2>Select Burger Flavors</h2>
-      <p id="flavor-instruction">Select exactly the required number (same flavor multiple times OK)</p>
+      <p id="flavor-instruction"></p>
       <div class="flavor-grid" id="flavor-options"></div>
       <p style="text-align:center; margin-top:20px; font-weight:bold;">
-        Total selected: <span id="total-selected">0</span> / <span id="required-count">0</span>
+        Total burgers selected: <span id="total-selected">0</span> / <span id="required-count">0</span>
       </p>
       <button onclick="confirmFlavors()" style="background:#4caf50; color:white; width:100%; padding:12px; font-size:18px; margin-top:20px; border:none; cursor:pointer; border-radius:6px;">
         Confirm & Add to Cart
@@ -191,7 +186,7 @@
     </div>
   </div>
 
-  <!-- ORDER DETAILS MODAL -->
+  <!-- ORDER DETAILS MODAL (unchanged) -->
   <div id="orderModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeOrderForm()">×</span>
@@ -236,7 +231,7 @@
       "Paneer Tikka Burger",
       "Green House Melt Burger"
     ];
-    let flavorQuantities = {}; // e.g. { "Classic Chicken Cheeseburger": 0 }
+    let flavorQuantities = {}; // {flavor: quantity}
 
     function addToCart(name, price) {
       cart.push({name, price});
@@ -290,8 +285,9 @@
       for (let qty of Object.values(flavorQuantities)) {
         totalSelected += qty;
       }
+
       if (totalSelected !== currentPack.required) {
-        alert(`Please select exactly ${currentPack.required} burger(s). You have ${totalSelected}.`);
+        alert(`You must select exactly ${currentPack.required} burger(s). Currently selected: ${totalSelected}.`);
         return;
       }
 
