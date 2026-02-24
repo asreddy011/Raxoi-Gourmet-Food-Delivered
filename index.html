@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Raxoi Gourmet Food - Menu & Order</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background: #f8f8f8; padding-bottom: 120px; }
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f8f8f8; padding-bottom: 140px; }
     h1, h2 { text-align: center; color: #d32f2f; }
     .category { margin: 40px 0; }
     .item { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -34,7 +34,7 @@
     #floating-cart .total { font-weight: bold; font-size: 16px; color: #388e3c; text-align: center; margin: 10px 0; }
     #floating-cart button { width: 100%; background: #25D366; color: white; font-size: 16px; padding: 12px; border: none; border-radius: 6px; cursor: pointer; }
 
-    /* Modal (shared for flavor and order) */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -52,16 +52,16 @@
       padding: 25px;
       border: 1px solid #888;
       width: 90%;
-      max-width: 500px;
+      max-width: 600px;
       border-radius: 12px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     }
     .close { color: #aaa; float: right; font-size: 32px; font-weight: bold; }
     .close:hover { color: black; cursor: pointer; }
-    .flavor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
-    .flavor-option { padding: 10px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; text-align: center; }
-    .flavor-option.selected { background: #e8f5e9; border-color: #4caf50; }
-    input[type="checkbox"] { margin-right: 8px; }
+    .flavor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; margin: 20px 0; }
+    .flavor-option { padding: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; text-align: center; }
+    .flavor-option.selected { background: #e8f5e9; border-color: #4caf50; font-weight: bold; }
+    input[type="checkbox"] { margin-right: 8px; transform: scale(1.3); }
     input, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
     label { display: block; margin-top: 12px; font-weight: bold; }
     .radio-group { margin: 12px 0; }
@@ -82,6 +82,7 @@
   </div>
 
   <div id="menu">
+
     <!-- BURGERS -->
     <div class="category">
       <h2>Burgers</h2>
@@ -110,7 +111,7 @@
         <button onclick="showFlavorSelector('Party Box', 2199, 4)">Add to Cart</button>
       </div>
 
-      <h3>Burger Flavors</h3>
+      <h3>Burger Flavors (Individual)</h3>
       <div class="item">
         <h3>Classic Chicken Cheeseburger</h3>
         <p>Thick and juicy grilled chicken patty served on a toasted bun with shredded iceberg, onions, dill pickle, tomato and cheese.</p>
@@ -434,31 +435,31 @@
         <h3>Chicken Wings Fried (8 pcs) - Andhra Style</h3>
         <p>Chicken wings tossed in Andhra style flavor.</p>
         <p class="price">₹499</p>
-        <button onclick="addToCart('Chicken Wings Fried (8 pcs) - Andhra Style', 499)">Add to Cart</button>
+        <button onclick="addToCart('Chicken Wings Fried - Andhra Style', 499)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Chicken Wings Fried (8 pcs) - BBQ</h3>
         <p>Chicken wings tossed in BBQ flavor.</p>
         <p class="price">₹499</p>
-        <button onclick="addToCart('Chicken Wings Fried (8 pcs) - BBQ', 499)">Add to Cart</button>
+        <button onclick="addToCart('Chicken Wings Fried - BBQ', 499)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Chicken Wings Fried (8 pcs) - Buffalo</h3>
         <p>Chicken wings tossed in Buffalo flavor.</p>
         <p class="price">₹499</p>
-        <button onclick="addToCart('Chicken Wings Fried (8 pcs) - Buffalo', 499)">Add to Cart</button>
+        <button onclick="addToCart('Chicken Wings Fried - Buffalo', 499)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Chicken Wings Fried (8 pcs) - Sweet Chilli Crunchy Garlic</h3>
         <p>Chicken wings tossed in Sweet Chilli Crunchy Garlic flavor.</p>
         <p class="price">₹599</p>
-        <button onclick="addToCart('Chicken Wings Fried (8 pcs) - Sweet Chilli Crunchy Garlic', 599)">Add to Cart</button>
+        <button onclick="addToCart('Chicken Wings Fried - Sweet Chilli Crunchy Garlic', 599)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Chicken Wings Fried (8 pcs) - Cajun</h3>
         <p>Chicken wings tossed in Cajun flavor.</p>
         <p class="price">₹499</p>
-        <button onclick="addToCart('Chicken Wings Fried (8 pcs) - Cajun', 499)">Add to Cart</button>
+        <button onclick="addToCart('Chicken Wings Fried - Cajun', 499)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Garlic Bread</h3>
@@ -503,10 +504,10 @@
     <div class="modal-content">
       <span class="close" onclick="closeFlavorModal()">×</span>
       <h2>Select Burger Flavors</h2>
-      <p id="flavor-instruction"></p>
+      <p id="flavor-instruction">Select exactly the required number (same or different OK)</p>
       <div class="flavor-grid" id="flavor-options"></div>
       <button onclick="confirmFlavors()" style="background:#4caf50; color:white; width:100%; padding:12px; font-size:18px; margin-top:20px; border:none; cursor:pointer; border-radius:6px;">
-        Confirm Selection
+        Confirm & Add to Cart
       </button>
     </div>
   </div>
@@ -520,7 +521,7 @@
         <label for="customerName">Your Name *</label>
         <input type="text" id="customerName" required placeholder="Full name">
 
-        <label for="customerPhone">Phone Number * </label>
+        <label for="customerPhone">Phone Number *</label>
         <input type="tel" id="customerPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number">
 
         <div class="radio-group">
@@ -565,14 +566,14 @@
 
     function showFlavorSelector(packName, packPrice, requiredCount) {
       currentPack = { name: packName, price: packPrice, required: requiredCount };
-      document.getElementById('flavor-instruction').textContent = `Select ${requiredCount} flavor(s) for ${packName}`;
+      document.getElementById('flavor-instruction').textContent = `Select exactly ${requiredCount} flavor(s) for ${packName} (same or different OK)`;
       const grid = document.getElementById('flavor-options');
       grid.innerHTML = '';
       flavors.forEach(flavor => {
         const div = document.createElement('div');
         div.className = 'flavor-option';
-        div.innerHTML = `<input type="checkbox" value="${flavor}" id="${flavor.replace(/\s/g, '')}">
-                         <label for="${flavor.replace(/\s/g, '')}">${flavor}</label>`;
+        div.innerHTML = `<input type="checkbox" value="${flavor}" id="${flavor.replace(/\s+/g, '')}">
+                         <label for="${flavor.replace(/\s+/g, '')}">${flavor}</label>`;
         grid.appendChild(div);
       });
       document.getElementById('flavorModal').style.display = 'block';
@@ -583,16 +584,19 @@
     }
 
     function confirmFlavors() {
-      const selected = Array.from(document.querySelectorAll('#flavor-options input:checked')).map(cb => cb.value);
+      const checkboxes = document.querySelectorAll('#flavor-options input[type="checkbox"]');
+      const selected = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
       if (selected.length !== currentPack.required) {
-        alert(`Please select exactly ${currentPack.required} flavor(s)`);
+        alert(`Please select exactly ${currentPack.required} flavor(s). You selected ${selected.length}.`);
         return;
       }
+
       const flavorStr = selected.join(' + ');
       const itemName = `${currentPack.name} (${flavorStr})`;
-      cart.push({name: itemName, price: currentPack.price});
-      updateFloatingCart();
-      alert(`${currentPack.name} with ${flavorStr} added to cart!`);
+      addToCart(itemName, currentPack.price);
       closeFlavorModal();
     }
 
