@@ -9,66 +9,119 @@
       font-family: Arial, sans-serif; 
       margin: 20px; 
       background: #f8f8f8; 
-      padding-bottom: 100px; /* space for floating cart */
+      padding-bottom: 120px; /* space for floating cart */
     }
     h1, h2 { text-align: center; color: #d32f2f; }
-    .category { margin: 30px 0; }
-    .item { border: 1px solid #ddd; padding: 15px; margin: 10px; background: white; border-radius: 8px; }
-    .price { font-weight: bold; color: #388e3c; }
-    button { background: #4caf50; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+    .category { margin: 40px 0; }
+    .item { 
+      border: 1px solid #ddd; 
+      padding: 15px; 
+      margin: 10px 0; 
+      background: white; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .price { font-weight: bold; color: #388e3c; font-size: 1.1em; }
+    button { 
+      background: #4caf50; 
+      color: white; 
+      border: none; 
+      padding: 10px 15px; 
+      cursor: pointer; 
+      border-radius: 5px; 
+      margin-top: 8px;
+    }
     button:hover { background: #388e3c; }
 
-    /* Floating Cart (top-right, fixed when scrolling) */
+    /* Floating Cart - Top Right, Fixed */
     #floating-cart {
       position: fixed;
       top: 20px;
       right: 20px;
       background: white;
       border: 1px solid #ddd;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       z-index: 1000;
-      min-width: 220px;
-      display: none; /* hidden until items added */
+      min-width: 260px;
+      max-width: 320px;
+      display: none;
     }
     #floating-cart.show { display: block; }
-    #floating-cart h3 { margin: 0 0 10px; font-size: 18px; text-align: center; }
-    #floating-cart p { margin: 5px 0; font-weight: bold; }
+    #floating-cart h3 { margin: 0 0 12px; font-size: 18px; text-align: center; color: #333; }
+    #floating-cart .cart-item { font-size: 14px; margin: 5px 0; color: #555; }
+    #floating-cart .total { font-weight: bold; font-size: 16px; color: #388e3c; text-align: center; margin: 10px 0; }
     #floating-cart button {
       width: 100%;
       background: #25D366;
-      margin-top: 10px;
+      color: white;
       font-size: 16px;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
-    #cart-items-float { max-height: 150px; overflow-y: auto; margin-bottom: 10px; font-size: 14px; }
+    #floating-cart button:hover { background: #1da851; }
 
-    /* Modal Form (same as before) */
-    .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
-    .modal-content { background-color: #fefefe; margin: 10% auto; padding: 20px; border: 1px solid #888; width: 90%; max-width: 500px; border-radius: 10px; }
-    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
-    .close:hover { color: black; cursor: pointer; }
-    input, textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    .radio-group { margin: 10px 0; }
-    .radio-group label { display: inline; margin-right: 20px; font-weight: normal; }
+    /* Modal Form */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 25px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .close:hover { color: #000; cursor: pointer; }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    .radio-group { margin: 12px 0; }
+    .radio-group label { display: inline-block; margin-right: 25px; font-weight: normal; }
   </style>
 </head>
 <body>
 
   <h1>Raxoi Gourmet Food</h1>
-  <p style="text-align:center;">Kompally, Hyderabad - Gourmet Burgers, Pasta, Biryani & More</p>
+  <p style="text-align:center; color: #555;">Kompally, Hyderabad - Gourmet Burgers, Pasta, Biryani & More</p>
 
-  <!-- FLOATING CART (always visible on scroll) -->
+  <!-- FLOATING CART -->
   <div id="floating-cart">
     <h3>Your Cart (<span id="cart-count">0</span>)</h3>
     <div id="cart-items-float"></div>
-    <p>Total: ₹<span id="total-float">0</span></p>
+    <div class="total">Total: ₹<span id="total-float">0</span></div>
     <button onclick="showOrderForm()">Place Order via WhatsApp</button>
   </div>
 
   <div id="menu">
-    <!-- Your full menu – BURGERS -->
+
+    <!-- BURGERS -->
     <div class="category">
       <h2>Burgers</h2>
       <div class="item">
@@ -103,17 +156,396 @@
         <p class="price">₹299</p>
         <button onclick="addToCart('Classic Chicken Cheeseburger', 299)">Add to Cart</button>
       </div>
-      <!-- ... rest of burger flavors ... -->
-      <!-- Paste your remaining burger items here from previous code if needed -->
+      <div class="item">
+        <h3>Mexican Chicken Burger</h3>
+        <p>Spicy Mexican-spiced chicken patty grilled to perfection, served on a toasted bun with habanero aioli, lettuce, jalapeño.</p>
+        <p class="price">₹329</p>
+        <button onclick="addToCart('Mexican Chicken Burger', 329)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Mediterranean Burger</h3>
+        <p>Chicken patty with tzatziki, mixed greens, shaved onions and tomato.</p>
+        <p class="price">₹329</p>
+        <button onclick="addToCart('Mediterranean Burger', 329)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Chicken Tikka Burger</h3>
+        <p>Grilled chicken tikka patty with tikka sauce, shredded cabbage, and grilled bell peppers.</p>
+        <p class="price">₹329</p>
+        <button onclick="addToCart('Chicken Tikka Burger', 329)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Buffalo Chicken Burger</h3>
+        <p>Crispy golden fried chicken tossed in buffalo sauce with mixed greens and grilled onions.</p>
+        <p class="price">₹329</p>
+        <button onclick="addToCart('Buffalo Chicken Burger', 329)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Paneer Tikka Burger</h3>
+        <p>Grilled paneer tikka patty with tikka sauce, shredded cabbage, and grilled bell peppers.</p>
+        <p class="price">₹299</p>
+        <button onclick="addToCart('Paneer Tikka Burger', 299)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Green House Melt Burger</h3>
+        <p>Mildly spiced veg patty served on a toasted bun with shredded iceberg, onions, dill pickle, tomato, and cheese. Accompanied by crispy fries and greens.</p>
+        <p class="price">₹279</p>
+        <button onclick="addToCart('Green House Melt Burger', 279)">Add to Cart</button>
+      </div>
     </div>
 
-    <!-- PASTA, BIRYANIS, SALADS, PIZZA, APPETIZERS – copy from your previous full menu code -->
-    <!-- To avoid repeating 300+ lines here, please copy your existing <div id="menu"> content from your old file into this structure -->
-    <!-- The important part is the floating cart and form – menu stays the same -->
+    <!-- PASTA -->
+    <div class="category">
+      <h2>Pasta</h2>
+      <div class="item">
+        <h3>Alfredo Indulge - Veg</h3>
+        <p>Alfredo Indulge in a creamy Alfredo sauce.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Alfredo Indulge - Veg', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Alfredo Indulge - Chicken</h3>
+        <p>Add Chicken for a heartier experience.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Alfredo Indulge - Chicken', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Alfredo Indulge - Prawns</h3>
+        <p>Add Prawns for a heartier experience.</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Alfredo Indulge - Prawns', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Prawns Pink Sauce Delight - Veg</h3>
+        <p>Pink Sauce Delight. Luscious blend of creamy and tangy goodness.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Prawns Pink Sauce Delight - Veg', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Prawns Pink Sauce Delight - Chicken</h3>
+        <p>Add Chicken for extra flavor.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Prawns Pink Sauce Delight - Chicken', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Prawns Pink Sauce Delight - Prawns</h3>
+        <p>Add Prawns for extra flavor.</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Prawns Pink Sauce Delight - Prawns', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Red Sauce Fiesta Classic - Veg</h3>
+        <p>Red sauce bursting with rich, tomatoey goodness.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Red Sauce Fiesta Classic - Veg', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Red Sauce Fiesta Classic - Chicken</h3>
+        <p>Add Chicken to elevate this traditional dish.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Red Sauce Fiesta Classic - Chicken', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Red Sauce Fiesta Classic - Prawns</h3>
+        <p>Add Prawns to elevate this traditional dish.</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Red Sauce Fiesta Classic - Prawns', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Spaghetti Aglio Olio - Veg</h3>
+        <p>Spaghetti Aglio Olio Saut.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Spaghetti Aglio Olio - Veg', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Spaghetti Aglio Olio - Chicken</h3>
+        <p>Add Chicken.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Spaghetti Aglio Olio - Chicken', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Spaghetti Aglio Olio - Prawns</h3>
+        <p>Add Prawns.</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Spaghetti Aglio Olio - Prawns', 599)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- BIRYANIS -->
+    <div class="category">
+      <h2>Biryanis</h2>
+      <div class="item">
+        <h3>Handi Chicken Biryani - 450g</h3>
+        <p>Tender chicken pieces marinated in spices, cooked with long-grain basmati rice, sealed in a clay pot.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Handi Chicken Biryani - 450g', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Handi Chicken Biryani - 900g</h3>
+        <p>Tender chicken pieces marinated in spices, cooked with long-grain basmati rice, sealed in a clay pot.</p>
+        <p class="price">₹659</p>
+        <button onclick="addToCart('Handi Chicken Biryani - 900g', 659)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Handi Mutton Biryani - 450g</h3>
+        <p>Juicy mutton chunks simmered with rich spices and herbs, layered with basmati rice.</p>
+        <p class="price">₹649</p>
+        <button onclick="addToCart('Handi Mutton Biryani - 450g', 649)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Handi Mutton Biryani - 900g</h3>
+        <p>Juicy mutton chunks simmered with rich spices and herbs, layered with basmati rice.</p>
+        <p class="price">₹849</p>
+        <button onclick="addToCart('Handi Mutton Biryani - 900g', 849)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Handi Veggie Biryani - 450g</h3>
+        <p>Delightful mix of fresh vegetables and aromatic spices, cooked with basmati rice in a sealed clay pot.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Handi Veggie Biryani - 450g', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Handi Veggie Biryani - 900g</h3>
+        <p>Delightful mix of fresh vegetables and aromatic spices, cooked with basmati rice in a sealed clay pot.</p>
+        <p class="price">₹559</p>
+        <button onclick="addToCart('Handi Veggie Biryani - 900g', 559)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- SALADS -->
+    <div class="category">
+      <h2>Salads</h2>
+      <div class="item">
+        <h3>Caesar Salad - Paneer</h3>
+        <p>Crisp romaine lettuce, olives, Parmesan, croutons and Caesar dressing.</p>
+        <p class="price">₹349</p>
+        <button onclick="addToCart('Caesar Salad - Paneer', 349)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Caesar Salad - Chicken</h3>
+        <p>Crisp romaine lettuce, olives, Parmesan, croutons and Caesar dressing.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Caesar Salad - Chicken', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Caesar Salad - Shrimp</h3>
+        <p>Crisp romaine lettuce, olives, Parmesan, croutons and Caesar dressing.</p>
+        <p class="price">₹459</p>
+        <button onclick="addToCart('Caesar Salad - Shrimp', 459)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Warm Cajun Salad - Paneer</h3>
+        <p>Warm cajun spiced goodness with Parmesan, croutons and Caesar dressing.</p>
+        <p class="price">₹349</p>
+        <button onclick="addToCart('Warm Cajun Salad - Paneer', 349)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Warm Cajun Salad - Chicken</h3>
+        <p>Warm cajun spiced goodness with Parmesan, croutons and Caesar dressing.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Warm Cajun Salad - Chicken', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Warm Cajun Salad - Shrimp</h3>
+        <p>Warm cajun spiced goodness with Parmesan, croutons and Caesar dressing.</p>
+        <p class="price">₹459</p>
+        <button onclick="addToCart('Warm Cajun Salad - Shrimp', 459)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- PIZZA -->
+    <div class="category">
+      <h2>Pizza</h2>
+      <div class="item">
+        <h3>Chicken Pepperoni Pizza - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Chicken Pepperoni Pizza - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Chicken Pepperoni Pizza - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Chicken Pepperoni Pizza - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>BBQ Chicken Pizza - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('BBQ Chicken Pizza - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>BBQ Chicken Pizza - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('BBQ Chicken Pizza - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Sicilian Veg Pizza - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Sicilian Veg Pizza - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Sicilian Veg Pizza - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Sicilian Veg Pizza - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Pizza Margherita - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Pizza Margherita - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Pizza Margherita - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Pizza Margherita - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Hawaiian Pizza Chicken - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Hawaiian Pizza Chicken - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Hawaiian Pizza Chicken - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Hawaiian Pizza Chicken - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Achari Paneer Pizza - 8 inch</h3>
+        <p>Thin crust topped with spicy achari sauce, cottage cheese, mozzarella, jalapeños, peppers, tomatoes, onions, olives, garlic butter. Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Achari Paneer Pizza - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Achari Paneer Pizza - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Achari Paneer Pizza - 12 inch', 599)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- APPETIZERS -->
+    <div class="category">
+      <h2>Appetizers</h2>
+      <div class="item">
+        <h3>Dynamite Shrimp Prawn</h3>
+        <p>Crispy coated and glazed with a creamy sauce for a perfect burst of flavor.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Dynamite Shrimp Prawn', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Crispy Fish Golden</h3>
+        <p>Crispy fish fillets marinated with gram flour and a medley of spices.</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Crispy Fish Golden', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Cantonese Style Chilli Chicken</h3>
+        <p>Stir-fried chicken with fresh chilli, garlic, rice wine, and Cantonese chilli sauce.</p>
+        <p class="price">₹349</p>
+        <button onclick="addToCart('Cantonese Style Chilli Chicken', 349)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Cantonese Style Chilli Paneer</h3>
+        <p>Stir-fried cottage cheese cubes with fresh chilli, garlic, and Cantonese chilli sauce.</p>
+        <p class="price">₹349</p>
+        <button onclick="addToCart('Cantonese Style Chilli Paneer', 349)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Chicken 65</h3>
+        <p>Juicy chicken morsels marinated in a special blend of spices, fried to crispy perfection. A spicy and flavorful classic with curry leaves and a hint of lemon.</p>
+        <p class="price">₹349</p>
+        <button onclick="addToCart('Chicken 65', 349)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Paneer 65</h3>
+        <p>Juicy paneer morsels marinated in a special blend of spices, fried to crispy perfection. A spicy and flavorful classic with curry leaves and a hint of lemon.</p>
+        <p class="price">₹349</p>
+        <button onclick="addToCart('Paneer 65', 349)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Chicken Wings Fried (8 pcs) - Andhra Style</h3>
+        <p>Chicken wings tossed in Andhra style flavor.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Chicken Wings Fried - Andhra Style', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Chicken Wings Fried (8 pcs) - BBQ</h3>
+        <p>Chicken wings tossed in BBQ flavor.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Chicken Wings Fried - BBQ', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Chicken Wings Fried (8 pcs) - Buffalo</h3>
+        <p>Chicken wings tossed in Buffalo flavor.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Chicken Wings Fried - Buffalo', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Chicken Wings Fried (8 pcs) - Sweet Chilli Crunchy Garlic</h3>
+        <p>Chicken wings tossed in Sweet Chilli Crunchy Garlic flavor.</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Chicken Wings Fried - Sweet Chilli Crunchy Garlic', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Chicken Wings Fried (8 pcs) - Cajun</h3>
+        <p>Chicken wings tossed in Cajun flavor.</p>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Chicken Wings Fried - Cajun', 499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Garlic Bread</h3>
+        <p>Warm, buttery garlic bread fried to crispy.</p>
+        <p class="price">₹199</p>
+        <button onclick="addToCart('Garlic Bread', 199)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>French Fries</h3>
+        <p class="price">₹149</p>
+        <button onclick="addToCart('French Fries', 149)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Cajun Fries</h3>
+        <p>Fried to crispy perfection with spices.</p>
+        <p class="price">₹229</p>
+        <button onclick="addToCart('Cajun Fries', 229)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Jalapeno & Cheese Fries</h3>
+        <p>Flavorful classic with curry leaves and a hint of spice.</p>
+        <p class="price">₹349</p>
+        <button onclick="addToCart('Jalapeno & Cheese Fries', 349)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Garlic Aioli Fries</h3>
+        <p class="price">₹349</p>
+        <button onclick="addToCart('Garlic Aioli Fries', 349)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Onion Rings</h3>
+        <p>Crispy golden onion rings (8 Pieces).</p>
+        <p class="price">₹199</p>
+        <button onclick="addToCart('Onion Rings', 199)">Add to Cart</button>
+      </div>
+    </div>
 
   </div>
 
-  <!-- ORDER FORM MODAL (same as before, with pickup/delivery) -->
+  <!-- FLOATING CART -->
+  <div id="floating-cart">
+    <h3>Your Cart (<span id="cart-count">0</span>)</h3>
+    <div id="cart-items-float"></div>
+    <div class="total">Total: ₹<span id="total-float">0</span></div>
+    <button onclick="showOrderForm()">Place Order via WhatsApp</button>
+  </div>
+
+  <!-- ORDER FORM MODAL -->
   <div id="orderModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeOrderForm()">×</span>
@@ -151,25 +583,10 @@
 
     function addToCart(name, price) {
       cart.push({name, price});
-      updateCartDisplay();
       updateFloatingCart();
       alert(name + ' added to cart!');
     }
 
-    function updateCartDisplay() {
-      const list = document.getElementById('cart-items');
-      list.innerHTML = '';
-      let total = 0;
-      cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} - ₹${item.price}`;
-        list.appendChild(li);
-        total += item.price;
-      });
-      document.getElementById('total').textContent = `₹${total}`;
-    }
-
-    // Update floating cart
     function updateFloatingCart() {
       const count = document.getElementById('cart-count');
       const totalFloat = document.getElementById('total-float');
@@ -181,6 +598,7 @@
       itemsFloat.innerHTML = '';
       cart.forEach(item => {
         const div = document.createElement('div');
+        div.className = 'cart-item';
         div.textContent = `${item.name} - ₹${item.price}`;
         itemsFloat.appendChild(div);
         total += item.price;
@@ -248,7 +666,7 @@
       });
       message += `\nTotal Amount: ₹${total}\n`;
 
-      const yourNumber = '+919133323482'; // Your number
+      const yourNumber = '+919133323482'; // Your WhatsApp number
       const url = `https://wa.me/${yourNumber}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
 
