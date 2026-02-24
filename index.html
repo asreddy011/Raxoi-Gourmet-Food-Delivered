@@ -41,9 +41,7 @@
       border: none;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    #floating-cart.minimized h3,
-    #floating-cart.minimized #cart-items-float,
-    #floating-cart.minimized button { display: none; }
+    #floating-cart.minimized h3, #floating-cart.minimized #cart-items-float, #floating-cart.minimized button { display: none; }
     #floating-cart.minimized .total { margin: 0; font-size: 14px; font-weight: bold; }
     #minimize-btn {
       position: absolute;
@@ -60,20 +58,65 @@
       text-align: center;
       cursor: pointer;
     }
-    #floating-cart h3 { margin: 0 0 12px; font-size: 18px; text-align: center; color: #333; }
-    #cart-items-float { max-height: 150px; overflow-y: auto; margin-bottom: 10px; font-size: 14px; }
-    #floating-cart .total { font-weight: bold; font-size: 16px; color: #388e3c; text-align: center; margin: 10px 0; }
-    #floating-cart button { width: 100%; background: #25D366; color: white; font-size: 16px; padding: 12px; border: none; border-radius: 6px; cursor: pointer; }
 
-    /* Modal (unchanged) */
-    .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); }
-    .modal-content { background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888; width: 90%; max-width: 600px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
-    .close { color: #aaa; float: right; font-size: 32px; font-weight: bold; }
+    /* Modal – smaller flavor popup */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 420px; /* smaller width */
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
     .close:hover { color: black; cursor: pointer; }
-    input, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-    label { display: block; margin-top: 12px; font-weight: bold; }
-    .radio-group { margin: 12px 0; }
-    .radio-group label { display: inline-block; margin-right: 25px; font-weight: normal; }
+
+    .flavor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 15px 0; }
+    .flavor-row { display: flex; align-items: center; justify-content: space-between; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+    .flavor-name { flex: 1; }
+    .quantity-controls button {
+      width: 28px;
+      height: 28px;
+      font-size: 18px;
+      margin: 0 4px;
+      background: #eee;
+      color: #333;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .quantity-controls button:hover { background: #ddd; }
+    .quantity { font-size: 16px; min-width: 25px; text-align: center; }
+
+    input, textarea { width: 100%; padding: 10px; margin: 6px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    label { display: block; margin-top: 10px; font-weight: bold; font-size: 14px; }
+    .radio-group { margin: 10px 0; }
+    .radio-group label { display: inline-block; margin-right: 20px; font-weight: normal; font-size: 14px; }
+
+    /* Confirm button always visible */
+    .confirm-btn-container {
+      position: sticky;
+      bottom: 0;
+      background: white;
+      padding: 15px 0 10px;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -98,41 +141,59 @@
         <h3>Duo Pack</h3>
         <p>Mix & match any 2 styles</p>
         <p class="price">₹329</p>
-        <button onclick="addToCart('Duo Pack', 329)">Add to Cart</button>
+        <button onclick="showFlavorSelector('Duo Pack', 329, 2)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Trio</h3>
         <p>Mix & match any 3 styles</p>
         <p class="price">₹479</p>
-        <button onclick="addToCart('Trio', 479)">Add to Cart</button>
+        <button onclick="showFlavorSelector('Trio', 479, 3)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Family Box</h3>
         <p>Family Pack (8 Burgers): Pick 2 styles</p>
         <p class="price">₹1899</p>
-        <button onclick="addToCart('Family Box', 1899)">Add to Cart</button>
+        <button onclick="showFlavorSelector('Family Box', 1899, 2)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Party Box</h3>
         <p>Family Pack (16 Burgers): Pick 4 styles</p>
         <p class="price">₹2199</p>
-        <button onclick="addToCart('Party Box', 2199)">Add to Cart</button>
+        <button onclick="showFlavorSelector('Party Box', 2199, 4)">Add to Cart</button>
       </div>
 
-      <h3>Burger Flavors</h3>
+      <h3>Burger Flavors (Individual)</h3>
       <div class="item">
         <h3>Classic Chicken Cheeseburger</h3>
         <p>Thick and juicy grilled chicken patty served on a toasted bun with shredded iceberg, onions, dill pickle, tomato and cheese.</p>
         <p class="price">₹299</p>
         <button onclick="addToCart('Classic Chicken Cheeseburger', 299)">Add to Cart</button>
       </div>
-      <!-- ... add all other burger flavors, pasta, biryanis, salads, pizza, appetizers exactly as in your previous code ... -->
-      <!-- Paste your full menu categories here -->
+      <!-- Add all other burger flavors here from your previous code -->
+      <!-- PASTA, BIRYANIS, SALADS, PIZZA, APPETIZERS – copy your full sections here -->
     </div>
 
   </div>
 
-  <!-- ORDER DETAILS MODAL (unchanged) -->
+  <!-- FLAVOR SELECTION MODAL – SMALLER -->
+  <div id="flavorModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeFlavorModal()">×</span>
+      <h2 style="margin-top:0;">Select Flavors</h2>
+      <p id="flavor-instruction" style="margin:10px 0; font-size:14px;"></p>
+      <div class="flavor-grid" id="flavor-options"></div>
+      <div class="confirm-btn-container">
+        <p style="margin:8px 0; font-weight:bold; font-size:14px;">
+          Total burgers: <span id="total-selected">0</span> / <span id="required-count">0</span>
+        </p>
+        <button onclick="confirmFlavors()" style="background:#4caf50; color:white; width:100%; padding:12px; font-size:17px; border:none; cursor:pointer; border-radius:6px;">
+          Confirm & Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER DETAILS MODAL -->
   <div id="orderModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeOrderForm()">×</span>
@@ -153,9 +214,9 @@
         </div>
 
         <label for="customerLocation">Delivery Address / Google Location / Pincode *</label>
-        <textarea id="customerLocation" rows="4" required placeholder="Full address, landmark, Google Maps link or pincode (required for delivery)"></textarea>
+        <textarea id="customerLocation" rows="4" required placeholder="Full address, landmark, Google Maps link or pincode"></textarea>
 
-        <label for="specialNotes">Special Notes / Instructions (optional)</label>
+        <label for="specialNotes">Special Notes (optional)</label>
         <textarea id="specialNotes" rows="3" placeholder="Any special requests, allergies, preferred time, etc."></textarea>
 
         <button type="submit" style="background:#25D366; color:white; width:100%; padding:12px; font-size:18px; margin-top:15px; border:none; cursor:pointer; border-radius:5px;">
@@ -167,12 +228,90 @@
 
   <script>
     let cart = [];
-    let isMinimized = false;
+    let currentPack = { name: '', price: 0, required: 0 };
+    const flavors = [
+      "Classic Chicken Cheeseburger",
+      "Mexican Chicken Burger",
+      "Mediterranean Burger",
+      "Chicken Tikka Burger",
+      "Buffalo Chicken Burger",
+      "Paneer Tikka Burger",
+      "Green House Melt Burger"
+    ];
+    let flavorQuantities = {};
 
     function addToCart(name, price) {
       cart.push({name, price});
       updateFloatingCart();
       alert(name + ' added to cart!');
+    }
+
+    function showFlavorSelector(packName, packPrice, requiredCount) {
+      currentPack = { name: packName, price: packPrice, required: requiredCount };
+      document.getElementById('flavor-instruction').textContent = `Select exactly ${requiredCount} burger(s) for ${packName}`;
+      document.getElementById('required-count').textContent = requiredCount;
+      flavorQuantities = {};
+      const grid = document.getElementById('flavor-options');
+      grid.innerHTML = '';
+      flavors.forEach(flavor => {
+        flavorQuantities[flavor] = 0;
+        const row = document.createElement('div');
+        row.className = 'flavor-row';
+        row.innerHTML = `
+          <span class="flavor-name">${flavor}</span>
+          <div class="quantity-controls">
+            <button type="button" onclick="changeQuantity('${flavor}', -1)">−</button>
+            <span class="quantity" id="qty-${flavor.replace(/\s+/g, '')}">0</span>
+            <button type="button" onclick="changeQuantity('${flavor}', 1)">+</button>
+          </div>
+        `;
+        grid.appendChild(row);
+      });
+      updateTotalSelected();
+      document.getElementById('flavorModal').style.display = 'block';
+    }
+
+    function changeQuantity(flavor, delta) {
+      const current = flavorQuantities[flavor];
+      const newQty = Math.max(0, current + delta);
+      flavorQuantities[flavor] = newQty;
+      document.getElementById(`qty-${flavor.replace(/\s+/g, '')}`).textContent = newQty;
+      updateTotalSelected();
+    }
+
+    function updateTotalSelected() {
+      let sum = 0;
+      for (let qty of Object.values(flavorQuantities)) sum += qty;
+      document.getElementById('total-selected').textContent = sum;
+    }
+
+    function confirmFlavors() {
+      let totalSelected = 0;
+      for (let qty of Object.values(flavorQuantities)) totalSelected += qty;
+
+      if (totalSelected !== currentPack.required) {
+        alert(`You must select exactly ${currentPack.required} burger(s). Currently: ${totalSelected}.`);
+        return;
+      }
+
+      let selectedParts = [];
+      for (let [flavor, qty] of Object.entries(flavorQuantities)) {
+        if (qty > 0) selectedParts.push(`${flavor} ×${qty}`);
+      }
+
+      if (selectedParts.length === 0) {
+        alert('Please select at least one flavor.');
+        return;
+      }
+
+      const flavorStr = selectedParts.join(' + ');
+      const itemName = `${currentPack.name} (${flavorStr})`;
+      addToCart(itemName, currentPack.price);
+      closeFlavorModal();
+    }
+
+    function closeFlavorModal() {
+      document.getElementById('flavorModal').style.display = 'none';
     }
 
     function updateFloatingCart() {
@@ -193,21 +332,8 @@
       });
       totalFloat.textContent = total;
 
-      if (cart.length > 0) {
-        cartDiv.classList.add('show');
-      } else {
-        cartDiv.classList.remove('show');
-      }
-    }
-
-    function toggleMinimize() {
-      isMinimized = !isMinimized;
-      const cartDiv = document.getElementById('floating-cart');
-      if (isMinimized) {
-        cartDiv.classList.add('minimized');
-      } else {
-        cartDiv.classList.remove('minimized');
-      }
+      if (cart.length > 0) cartDiv.classList.add('show');
+      else cartDiv.classList.remove('show');
     }
 
     function showOrderForm() {
@@ -250,11 +376,7 @@
 
       message += `Address / Google Location / Pincode: ${location}\n`;
 
-      if (notes) {
-        message += `Special Notes: ${notes}\n\n`;
-      } else {
-        message += '\n';
-      }
+      if (notes) message += `Special Notes: ${notes}\n\n`;
 
       message += 'Ordered Items:\n';
       let total = 0;
