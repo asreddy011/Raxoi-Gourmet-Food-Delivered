@@ -15,7 +15,7 @@
     #cart-summary { margin-top: 30px; padding: 15px; background: #fff; border: 1px solid #ddd; }
     #whatsapp-btn { background: #25D366; width: 100%; font-size: 18px; padding: 15px; margin-top: 20px; border: none; cursor: pointer; border-radius: 5px; }
 
-    /* Modal Form Styling */
+    /* Modal Form */
     .modal {
       display: none;
       position: fixed;
@@ -29,7 +29,7 @@
     }
     .modal-content {
       background-color: #fefefe;
-      margin: 15% auto;
+      margin: 10% auto;
       padding: 20px;
       border: 1px solid #888;
       width: 90%;
@@ -42,13 +42,8 @@
       font-size: 28px;
       font-weight: bold;
     }
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    input, textarea {
+    .close:hover { color: black; cursor: pointer; }
+    input, textarea, select {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
@@ -57,7 +52,8 @@
       box-sizing: border-box;
     }
     label { display: block; margin-top: 10px; font-weight: bold; }
-    .error { color: red; font-size: 0.9em; }
+    .radio-group { margin: 10px 0; }
+    .radio-group label { display: inline; margin-right: 20px; font-weight: normal; }
   </style>
 </head>
 <body>
@@ -65,6 +61,7 @@
   <p style="text-align:center;">Kompally, Hyderabad - Gourmet Burgers, Pasta, Biryani & More</p>
 
   <div id="menu">
+
     <!-- BURGERS -->
     <div class="category">
       <h2>Burgers</h2>
@@ -92,6 +89,7 @@
         <p class="price">₹2199</p>
         <button onclick="addToCart('Party Box', 2199)">Add to Cart</button>
       </div>
+
       <h3>Burger Flavors</h3>
       <div class="item">
         <h3>Classic Chicken Cheeseburger</h3>
@@ -137,7 +135,7 @@
       </div>
     </div>
 
-    <!-- PASTA (full variants) -->
+    <!-- PASTA -->
     <div class="category">
       <h2>Pasta</h2>
       <div class="item">
@@ -311,10 +309,69 @@
         <p class="price">₹599</p>
         <button onclick="addToCart('Chicken Pepperoni Pizza - 12 inch', 599)">Add to Cart</button>
       </div>
-      <!-- Add the rest of pizzas as before (BBQ Chicken, Sicilian Veg, Margherita, Hawaiian Chicken, Achari Paneer - both sizes) -->
+      <div class="item">
+        <h3>BBQ Chicken Pizza - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('BBQ Chicken Pizza - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>BBQ Chicken Pizza - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('BBQ Chicken Pizza - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Sicilian Veg Pizza - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Sicilian Veg Pizza - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Sicilian Veg Pizza - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Sicilian Veg Pizza - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Pizza Margherita - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Pizza Margherita - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Pizza Margherita - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Pizza Margherita - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Hawaiian Pizza Chicken - 8 inch</h3>
+        <p>Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Hawaiian Pizza Chicken - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Hawaiian Pizza Chicken - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Hawaiian Pizza Chicken - 12 inch', 599)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Achari Paneer Pizza - 8 inch</h3>
+        <p>Thin crust topped with spicy achari sauce, cottage cheese, mozzarella, jalapeños, peppers, tomatoes, onions, olives, garlic butter. Serves 2</p>
+        <p class="price">₹399</p>
+        <button onclick="addToCart('Achari Paneer Pizza - 8 inch', 399)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <h3>Achari Paneer Pizza - 12 inch</h3>
+        <p>Serves 4</p>
+        <p class="price">₹599</p>
+        <button onclick="addToCart('Achari Paneer Pizza - 12 inch', 599)">Add to Cart</button>
+      </div>
     </div>
 
-    <!-- APPETIZERS (full list) -->
+    <!-- APPETIZERS -->
     <div class="category">
       <h2>Appetizers</h2>
       <div class="item">
@@ -429,13 +486,13 @@
   </div>
 
   <!-- ORDER BUTTON -->
-  <button id="whatsapp-btn" onclick="showOrderForm()">Send Order to WhatsApp</button>
+  <button id="whatsapp-btn" onclick="showOrderForm()">Place Order via WhatsApp</button>
 
   <!-- CUSTOMER INFO MODAL -->
   <div id="orderModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeOrderForm()">×</span>
-      <h2>Please Enter Your Details</h2>
+      <h2>Order Details</h2>
       <form id="orderForm">
         <label for="customerName">Your Name *</label>
         <input type="text" id="customerName" required placeholder="Full name">
@@ -443,8 +500,19 @@
         <label for="customerPhone">Phone Number *</label>
         <input type="tel" id="customerPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number">
 
+        <div class="radio-group">
+          <label>Order Type *</label><br>
+          <input type="radio" name="orderType" value="Pickup" id="pickup" required>
+          <label for="pickup">Pickup (self-collection)</label><br>
+          <input type="radio" name="orderType" value="Delivery" id="delivery">
+          <label for="delivery">Delivery</label>
+        </div>
+
         <label for="customerLocation">Delivery Address / Google Location / Pincode *</label>
-        <textarea id="customerLocation" rows="4" required placeholder="Full address, landmark, Google Maps link, or pincode"></textarea>
+        <textarea id="customerLocation" rows="4" required placeholder="Full address, landmark, Google Maps link, or pincode (required for delivery)"></textarea>
+
+        <label for="specialNotes">Special Notes / Instructions (optional)</label>
+        <textarea id="specialNotes" rows="3" placeholder="Any special requests, allergies, preferred time, etc."></textarea>
 
         <button type="submit" style="background:#25D366; color:white; width:100%; padding:12px; font-size:18px; margin-top:15px; border:none; cursor:pointer; border-radius:5px;">
           Confirm & Send to WhatsApp
@@ -493,8 +561,10 @@
       const name = document.getElementById('customerName').value.trim();
       const phone = document.getElementById('customerPhone').value.trim();
       const location = document.getElementById('customerLocation').value.trim();
+      const notes = document.getElementById('specialNotes').value.trim();
+      const orderType = document.querySelector('input[name="orderType"]:checked')?.value;
 
-      if (!name || !phone || !location) {
+      if (!name || !phone || !orderType || !location) {
         alert('Please fill all required fields!');
         return;
       }
@@ -503,7 +573,21 @@
       message += 'Customer Details:\n';
       message += `Name: ${name}\n`;
       message += `Phone: ${phone}\n`;
-      message += `Address / Google Location: ${location}\n\n`;
+      message += `Order Type: ${orderType}\n`;
+
+      if (orderType === 'Delivery') {
+        message += 'Delivery order – delivery charges will be added\n';
+      } else {
+        message += 'Pickup order (self-collection)\n';
+      }
+
+      message += `Address / Google Location / Pincode: ${location}\n`;
+
+      if (notes) {
+        message += `Special Notes: ${notes}\n\n`;
+      } else {
+        message += '\n';
+      }
 
       message += 'Ordered Items:\n';
       let total = 0;
@@ -513,17 +597,13 @@
       });
       message += `\nTotal Amount: ₹${total}\n`;
 
-      const yourNumber = '+919133323482'; // Your number – already set
+      const yourNumber = '+919133323482'; // Your number
       const url = `https://wa.me/${yourNumber}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
 
       closeOrderForm();
-      // Optional: clear cart after sending
-      // cart = [];
-      // updateCartDisplay();
     });
 
-    // Close modal when clicking outside
     window.onclick = function(event) {
       const modal = document.getElementById('orderModal');
       if (event.target == modal) {
