@@ -5,44 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Raxoi Gourmet Food - Menu & Order</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f8f8f8;
-      padding-bottom: 140px;
-    }
-    h1, h2 {
-      text-align: center;
-      color: #d32f2f;
-    }
-    .category {
-      margin: 40px 0;
-    }
-    .item {
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin: 10px 0;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .price {
-      font-weight: bold;
-      color: #388e3c;
-      font-size: 1.1em;
-    }
-    button {
-      background: #4caf50;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 8px;
-    }
-    button:hover {
-      background: #388e3c;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f8f8f8; padding-bottom: 140px; }
+    h1, h2 { text-align: center; color: #d32f2f; }
+    .category { margin: 40px 0; }
+    .item { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .price { font-weight: bold; color: #388e3c; font-size: 1.1em; }
+    button { background: #4caf50; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; margin-top: 8px; }
+    button:hover { background: #388e3c; }
 
     /* Floating Cart – Minimizable */
     #floating-cart {
@@ -60,9 +29,7 @@
       display: none;
       transition: all 0.3s ease;
     }
-    #floating-cart.show {
-      display: block;
-    }
+    #floating-cart.show { display: block; }
     #floating-cart.minimized {
       padding: 8px 16px;
       border-radius: 30px;
@@ -74,16 +41,8 @@
       border: none;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    #floating-cart.minimized h3,
-    #floating-cart.minimized #cart-items-float,
-    #floating-cart.minimized button {
-      display: none;
-    }
-    #floating-cart.minimized .total {
-      margin: 0;
-      font-size: 14px;
-      font-weight: bold;
-    }
+    #floating-cart.minimized h3, #floating-cart.minimized #cart-items-float, #floating-cart.minimized button { display: none; }
+    #floating-cart.minimized .total { margin: 0; font-size: 14px; font-weight: bold; }
     #minimize-btn {
       position: absolute;
       top: 6px;
@@ -124,39 +83,13 @@
       max-height: 85vh;
       overflow-y: auto;
     }
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    .close:hover {
-      color: black;
-      cursor: pointer;
-    }
+    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
+    .close:hover { color: black; cursor: pointer; }
 
-    .flavor-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 12px;
-      margin: 15px 0;
-    }
-    .flavor-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    .flavor-name {
-      flex: 1;
-    }
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-    }
+    .flavor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 15px 0; }
+    .flavor-row { display: flex; align-items: center; justify-content: space-between; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+    .flavor-name { flex: 1; }
+    .quantity-controls { display: flex; align-items: center; }
     .quantity-controls button {
       width: 32px;
       height: 32px;
@@ -165,45 +98,19 @@
       background: #f0f0f0;
       color: #333;
       border: 1px solid #ccc;
-      border-radius: 4px; /* square buttons */
+      border-radius: 4px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .quantity-controls button:hover {
-      background: #e0e0e0;
-    }
-    .quantity {
-      font-size: 16px;
-      min-width: 25px;
-      text-align: center;
-    }
+    .quantity-controls button:hover { background: #e0e0e0; }
+    .quantity { font-size: 16px; min-width: 25px; text-align: center; }
 
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 6px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-      font-size: 14px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-    .radio-group {
-      margin: 10px 0;
-    }
-    .radio-group label {
-      display: inline-block;
-      margin-right: 20px;
-      font-weight: normal;
-      font-size: 14px;
-    }
+    input, textarea { width: 100%; padding: 10px; margin: 6px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+    label { display: block; margin-top: 10px; font-weight: bold; font-size: 14px; }
+    .radio-group { margin: 10px 0; }
+    .radio-group label { display: inline-block; margin-right: 20px; font-weight: normal; font-size: 14px; }
 
     .confirm-btn-container {
       position: sticky;
@@ -213,11 +120,7 @@
       border-top: 1px solid #eee;
       text-align: center;
     }
-    .confirm-btn-container p {
-      margin: 8px 0;
-      font-weight: bold;
-      font-size: 14px;
-    }
+    .confirm-btn-container p { margin: 8px 0; font-weight: bold; font-size: 14px; }
   </style>
 </head>
 <body>
@@ -257,13 +160,13 @@
       <h2>Burgers</h2>
       <div class="item">
         <h3>Duo Pack</h3>
-        <p>Mix & match any 2 styles</p>
+        <p>Mix & match any 2 styles (2 burgers)</p>
         <p class="price">₹329</p>
         <button onclick="showFlavorSelector('Duo Pack', 329, 2)">Add to Cart</button>
       </div>
       <div class="item">
         <h3>Trio</h3>
-        <p>Mix & match any 3 styles</p>
+        <p>Mix & match any 3 styles (3 burgers)</p>
         <p class="price">₹479</p>
         <button onclick="showFlavorSelector('Trio', 479, 3)">Add to Cart</button>
       </div>
@@ -275,7 +178,7 @@
       </div>
       <div class="item">
         <h3>Party Box</h3>
-        <p>Family Pack (16 Burgers): Pick 4 styles</p>
+        <p>Family Pack (16 Burgers): Pick 4 styles (4 different or same)</p>
         <p class="price">₹2199</p>
         <button onclick="showFlavorSelector('Party Box', 2199, 4)">Add to Cart</button>
       </div>
