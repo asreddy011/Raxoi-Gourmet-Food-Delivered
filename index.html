@@ -178,7 +178,7 @@
       </div>
       <div class="item">
         <h3>Party Box</h3>
-        <p>Family Pack (16 Burgers): Pick 4 styles (4 different or same)</p>
+        <p>Family Pack (16 Burgers): Pick 4 styles</p>
         <p class="price">₹2199</p>
         <button onclick="showFlavorSelector('Party Box', 2199, 4)">Add to Cart</button>
       </div>
@@ -580,7 +580,7 @@
       <div class="flavor-grid" id="flavor-options"></div>
       <div class="confirm-btn-container">
         <p style="margin:8px 0; font-weight:bold; font-size:14px;">
-          Total burgers: <span id="total-selected">0</span> / <span id="required-count">0</span>
+          Total styles selected: <span id="total-selected">0</span> / <span id="required-count">0</span>
         </p>
         <button onclick="confirmFlavors()" style="background:#4caf50; color:white; width:100%; padding:12px; font-size:16px; border:none; cursor:pointer; border-radius:6px;">
           Confirm & Add to Cart
@@ -645,7 +645,8 @@
 
     function showFlavorSelector(packName, packPrice, requiredCount) {
       currentPack = { name: packName, price: packPrice, required: requiredCount };
-      document.getElementById('flavor-instruction').textContent = `Select exactly ${requiredCount} burger(s) for ${packName}`;
+      let unit = (requiredCount === 1) ? 'style' : 'styles';
+      document.getElementById('flavor-instruction').textContent = `Select exactly ${requiredCount} ${unit} for ${packName}`;
       document.getElementById('required-count').textContent = requiredCount;
       flavorQuantities = {};
       const grid = document.getElementById('flavor-options');
@@ -687,7 +688,7 @@
       for (let qty of Object.values(flavorQuantities)) totalSelected += qty;
 
       if (totalSelected !== currentPack.required) {
-        alert(`You must select exactly ${currentPack.required} burger(s). Currently: ${totalSelected}.`);
+        alert(`You must select exactly ${currentPack.required} style(s). Currently: ${totalSelected}.`);
         return;
       }
 
@@ -697,7 +698,7 @@
       }
 
       if (selectedParts.length === 0) {
-        alert('Please select at least one flavor.');
+        alert('Please select at least one style.');
         return;
       }
 
